@@ -2,23 +2,14 @@
 @inject HttpClient Http
 
 <PageTitle>SimIdentifier</PageTitle>
-<style>
-    .test {
-    height: auto; 
-    width: auto; 
-    max-width: 200px; 
-    max-height: 200px;
-}
-</style>
 
-<div class="my-5 justify-content-center text-center">
+<div class="justify-content-center text-center">
     <div>
-        <p class="d-inline mx-5 px-4" > Enter Number :</p>
-        <input type="tel" id="phone" placeholder="09123456789" name="phone" pattern="[+]{63}[0-9]{11,14}"
-            @bind="tempNum" @bind:event="oninput">
+        <input type="number" class="number" id="name" placeholder="Enter Number" required="" @bind="tempNum" @bind:event="oninput" />
+        <label for="name" class="label">Enter Number</label>
+
     </div>
     <div class="my-5 mx-3">
-        <p class="">Sim type :</p>
         @if (!String.IsNullOrEmpty(tempNum) && tempNum.Length >= 4)
         {
            
@@ -29,13 +20,10 @@
                     @if (tempNum.Contains(numbers))
                     {
                         setSimImage(sim.Provider);
-                        <img class="test d-inline mx-5 my-2 img-thumbnail" src="@simtype" />
+                        <img class="logo d-inline mx-5 my-2 img-thumbnail" src="@simtype" />
                     }
                 }
             }
-        }else
-        {
-            <p class="d-inline">Waiting...</p>
         }
     </div>
 </div>
@@ -45,7 +33,7 @@
 @code {
     private string? tempNum;
     private string? simtype;
-    private SIM[] SimNumbers;
+    private SIM[]? SimNumbers;
 
     protected override async Task OnInitializedAsync()
     {
